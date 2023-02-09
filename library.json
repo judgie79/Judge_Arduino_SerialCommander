@@ -1,0 +1,24 @@
+{
+    "name": "Judge.SerialCommander",
+    "version": "1.0.0",
+    "description": "Using the serial bus to command an arduino",
+    "keywords": "Arduino",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/judgie79/Judge_Arduino_SerialCommander.git"
+    },
+    "authors":
+    [
+      {
+        "name": "Michael Richter",
+        "email": "the.judgie@gmail.com",
+        "maintainer": true
+      }
+    ],
+    "dependencies": {
+      "hideakitai/DebugLog": "~0.6.6"
+    },
+    "frameworks": "*",
+    "platforms": "*"
+  }
