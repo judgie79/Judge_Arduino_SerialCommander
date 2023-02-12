@@ -16,12 +16,12 @@ void Commander::read()
         this->serialCmd->readCmd();
     } else {
         Command cmd = this->serialCmd->getCommand();
-        readCmd(cmd.key, cmd.value);
+        readCmd(cmd.key, cmd.value.c_str());
         this->serialCmd->resetCommand();
     }
 }
 
-void Commander::readCmd(char key, String data)
+void Commander::readCmd(char key, const char * data)
 {
     if (key != (char)CommandKey::HELLO && !_isConnected)
     {
@@ -53,9 +53,9 @@ void Commander::readCmd(char key, String data)
     }
 }
 
-void Commander::onHelloCommand(String value)
+void Commander::onHelloCommand(const char * value)
 {
-    if (value != CommandToken)
+    if (value != CommandToken.c_str())
     {
         serialCmd->writeCommand(CommandKey::ERROR, "invalid_token");
         return;
@@ -64,17 +64,17 @@ void Commander::onHelloCommand(String value)
     if (!_isConnected)
     {
         _isConnected = true;
-        serialCmd->writeCommand(CommandKey::RECEIVED, CommandToken);
+        serialCmd->writeCommand(CommandKey::RECEIVED, CommandToken.c_str());
     }
     else
     {
-        serialCmd->writeCommand(CommandKey::ALREADY_CONNECTED, CommandToken);
+        serialCmd->writeCommand(CommandKey::ALREADY_CONNECTED, CommandToken.c_str());
     }
 }
 
-void Commander::onByeCommand(String value)
+void Commander::onByeCommand(const char * value)
 {
-    if (value != CommandToken)
+    if (value != CommandToken.c_str())
     {
         serialCmd->writeCommand(CommandKey::ERROR, "invalid_token");
         return;
@@ -83,20 +83,20 @@ void Commander::onByeCommand(String value)
     _isConnected = false;
 }
 
-void Commander::onAckCommand(String value)
+void Commander::onAckCommand(const char * value)
 {
 }
 
-void Commander::onAlreadyConnectedCommand(String value)
+void Commander::onAlreadyConnectedCommand(const char * value)
 {
 }
 
-void Commander::onDebugCommand(String value)
+void Commander::onDebugCommand(const char * value)
 {
   serialCmd->debugPrintln(value);
 }
 
-void Commander::onErrorCommand(String value)
+void Commander::onErrorCommand(const char * value)
 {
     serialCmd->debugPrintln(value);
 }
@@ -106,10 +106,10 @@ bool Commander::isConnected()
     return _isConnected;
 }
 
-String Commander::getValue(String data, char separator, uint16_t index)
+String Commander::getValue(const char * data, uint16_t dataLength, char separator, uint8_t index)
 {
-    uint16_t maxIndex = data.length() - 1;
-    uint16_t j = 0;
+    uint8_t maxIndex = dataLength - 1;
+    uint8_t j = 0;
     String chunkVal = "";
 
     for (size_t i = 0; i <= maxIndex && j <= index; i++)

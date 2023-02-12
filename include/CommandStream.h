@@ -17,10 +17,10 @@ public:
   void resetCommand();
   Command getCommand();
 
-  void writeCommand(CommandKey key, String value);
-  void writeCommand(char key, String value);
+  void writeCommand(CommandKey key, const char * value);
+  void writeCommand(char key, const char * value);
 
-  void debugPrintln(String s);
+  void debugPrintln(const char * s);
 
 private:
   bool is_connected;

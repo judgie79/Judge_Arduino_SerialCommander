@@ -15,10 +15,9 @@ enum class CommandKey: char {
 
 const char CommandSeparator = '#';
 const char CommandValueSeparator = ',';
-
 const String CommandToken = "2425";
 
-String GetCommand(char key, String value);
+const char * GetCommand(char key, String value);
 
 struct Command
 {

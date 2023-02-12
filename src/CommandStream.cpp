@@ -62,7 +62,7 @@ void CommandStream::readCmd()
         
         temp.trim();
         if (temp != "") {
-          debugPrintln(temp);
+          debugPrintln(temp.c_str());
         }
       }
     }
@@ -84,14 +84,14 @@ void CommandStream::readCmd()
     this->currentIndex = 0;
   }
 
-void CommandStream::writeCommand(CommandKey key, String value) {
+void CommandStream::writeCommand(CommandKey key, const char * value) {
   this->output->println(GetCommand((char)key, value));
 }
 
-void CommandStream::writeCommand(char key, String value) {
+void CommandStream::writeCommand(char key, const char * value) {
   this->output->println(GetCommand(key, value));
 }
 
-void CommandStream::debugPrintln(String msg) {
+void CommandStream::debugPrintln(const char * msg) {
   this->output->println(GetCommand((char)CommandKey::DEBUG, msg));
 }
