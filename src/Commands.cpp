@@ -1,7 +1,7 @@
 #include "Commands.h"
 
 
-const char * GetCommand(char key, String value)
+const String GetCommand(char key, String value)
 {
   char temp[2 + value.length() - 1] = "";
   temp[0] = key;
@@ -13,5 +13,5 @@ const char * GetCommand(char key, String value)
   }
   
 
-  return temp;
+  return String(temp);
 }

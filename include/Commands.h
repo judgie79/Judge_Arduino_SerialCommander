@@ -17,7 +17,7 @@ const char CommandSeparator = '#';
 const char CommandValueSeparator = ',';
 const String CommandToken = "2425";
 
-const char * GetCommand(char key, String value);
+const String GetCommand(char key, String value);
 
 struct Command
 {
