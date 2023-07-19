@@ -27,7 +27,7 @@ private:
 protected:
 	CommandStream* serialCmd;
 	String getValue(const char * data, uint16_t dataLength, char separator, uint8_t index);
-	virtual void readCmd(char key, const char * data);
+	virtual void readCmd(char key, const char * data, uint8_t valueLength);
 };
 
 #endif

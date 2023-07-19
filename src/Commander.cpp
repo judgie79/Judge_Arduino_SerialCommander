@@ -16,13 +16,14 @@ void Commander::read()
         this->serialCmd->readCmd();
     } else {
         Command cmd = this->serialCmd->getCommand();
-        readCmd(cmd.key, cmd.value.c_str());
+        readCmd(cmd.key, cmd.value.c_str(), cmd.value.length());
         this->serialCmd->resetCommand();
     }
 }
 
-void Commander::readCmd(char key, const char * data)
+void Commander::readCmd(char key, const char * data, uint8_t valueLength)
 {
+    // Serial.println("TEST");
     if (key != (char)CommandKey::HELLO && !_isConnected)
     {
         // no connection, only allow hello
@@ -55,9 +56,9 @@ void Commander::readCmd(char key, const char * data)
 
 void Commander::onHelloCommand(const char * value)
 {
-    if (value != CommandToken.c_str())
+    if (strcmp(value, CommandToken.c_str()) != 0)
     {
-        serialCmd->writeCommand(CommandKey::ERROR, "invalid_token");
+        serialCmd->writeCommand(CommandKey::ERROR, value);
         return;
     }
 
@@ -74,7 +75,7 @@ void Commander::onHelloCommand(const char * value)
 
 void Commander::onByeCommand(const char * value)
 {
-    if (value != CommandToken.c_str())
+    if (strcmp(value, CommandToken.c_str()) != 0)
     {
         serialCmd->writeCommand(CommandKey::ERROR, "invalid_token");
         return;
